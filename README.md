@@ -7,7 +7,7 @@ A Spring Boot + Thymeleaf web application that allows users to:
 
 ---
 
-## 🌐 Live Demo (Optional)
+## 🌐 Live Demo 
 > Coming Soon...
 
 ---
@@ -39,7 +39,7 @@ A Spring Boot + Thymeleaf web application that allows users to:
 ### 1. Clone the project
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/movie-explorer.git
+git clone https://github.com/Vraj-x2/movie-explorer.git
 cd movie-explorer
 ```
 
