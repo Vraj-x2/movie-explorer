@@ -1,102 +1,83 @@
 # 🎬 Movie Explorer
 
-A Spring Boot + Thymeleaf web application that allows users to:
-- Search for movies using the **OMDb API**
-- Get **AI-powered movie recommendations** using **Gemini (Google AI)**
-- Click on AI-recommended titles to instantly search for them
+Movie Explorer is a Spring Boot web application that allows users to search for movie details using the OMDb API and receive AI-based movie recommendations using Google's Gemini AI.
 
----
+## 🌟 Features
 
-## 🌐 Live Demo 
-> Coming Soon...
+- 🔎 Search any movie title using the OMDb API
+- 🧠 Get AI-powered movie recommendations based on the title you searched
+- 📸 View movie details like title, year, director, plot, rating, and poster
+- 💡 Beautiful, modern UI built with Thymeleaf and custom CSS
 
----
+## 🚀 Demo
 
-## 🚀 Features
+You can run the app locally with the instructions below.
 
-- 🔍 Search movies by title (real-time OMDb integration)
-- 🧠 AI recommendations using Gemini (Gemini 2.0 Flash model)
-- 📸 Displays movie details: title, year, director, rating, poster, and plot
-- 💡 Clickable recommendations to auto-search similar movies
-- 🖼️ Responsive, modern UI styled with CSS
+## 🛠 Tech Stack
 
----
+- Spring Boot 3.4.5
+- Thymeleaf
+- OMDb API
+- Gemini AI (Google Generative Language API)
+- OkHttp + Jackson for HTTP and JSON
+- HTML/CSS for the frontend
 
-## 🧰 Technologies Used
+## 📂 File Structure
 
-| Layer        | Stack                          |
-|--------------|---------------------------------|
-| Backend      | Spring Boot 3, Java 21          |
-| Frontend     | Thymeleaf, HTML/CSS             |
-| AI/ML        | Google Gemini API (v1beta)      |
-| Movie Data   | OMDb API                        |
-| HTTP Client  | OkHttp, Jackson (for JSON)      |
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the project
-
-```bash
-git clone https://github.com/Vraj-x2/movie-explorer.git
-cd movie-explorer
+```
+src/
+├── main/
+│   ├── java/com/movieexplorer/
+│   │   ├── controller/
+│   │   ├── model/
+│   │   ├── service/
+│   ├── resources/
+│   │   ├── templates/index.html
+│   │   ├── static/css/style.css
+│   │   └── application.properties.example
 ```
 
-### 2. Create `application.properties`
+## 🧪 Setup Instructions
 
-Create a new file at `src/main/resources/application.properties` and add:
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Vraj-x2/movie-explorer.git
+   cd movie-explorer
+   ```
 
-```properties
-spring.application.name=Movie_Explorer
+2. **Configure Your API Keys**
+   - Copy the provided demo properties file:
+     ```bash
+     cp src/main/resources/application.properties.example src/main/resources/application.properties
+     ```
+   - Replace `YOUR_OMDB_API_KEY_HERE` and `YOUR_GEMINI_API_KEY_HERE` with your actual keys.
 
-omdb.api.key=your_omdb_api_key
-gemini.api.key=your_gemini_api_key
+3. **Run the Application**
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+4. **Visit the App**
+   - Open your browser at: [http://localhost:8080](http://localhost:8080)
+
+## 🔐 API Keys
+
+- [OMDb API Key](https://www.omdbapi.com/apikey.aspx)
+- [Google Gemini API Key](https://ai.google.dev/)
+
+> ⚠️ Never commit your real keys to GitHub. Use `.gitignore` to exclude `application.properties` and track only the `.example` file.
+
+## 🧠 Gemini Prompt Example
+
+```
+Suggest 3 movies similar to 'Inception'. Only list titles without years.
 ```
 
-> 🔐 **Note:** Never commit your real API keys to GitHub!
-
-### 3. Run the project
-
-```bash
-./mvnw spring-boot:run
-```
-
-Then go to: [http://localhost:8080](http://localhost:8080)
-
----
-
-## 📸 Screenshots
-
-| Search Movie | AI Recommendations |
-|--------------|--------------------|
-| ![Search](docs/search-screenshot.png) | ![AI](docs/ai-recommendation.png) |
-
----
-
-## 💡 Future Enhancements
-
-- Pagination for results
-- Autocomplete suggestions
-- Save favorite movies
-- Dark mode toggle
-- Deploy to Render/Vercel with public demo
-
----
-
-## 🤝 Contributing
-
-Pull requests and suggestions are welcome! Feel free to open an issue or fork the repo.
-
----
-
-## 📄 License
-
-This project is open source under the [MIT License](LICENSE).
-
----
-
-## 👨‍💻 Author
+## 👤 Author
 
 **Vraj Contractor**  
-[LinkedIn](https://linkedin.com/in/your-profile) | [GitHub](https://github.com/contracv)
+GitHub: [@Vraj-x2](https://github.com/Vraj-x2)
+
+---
+
+📬 Pull requests and contributions are welcome!
