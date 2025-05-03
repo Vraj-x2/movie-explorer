@@ -1,55 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <title>Movie Explorer</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/css/400;500;600;700.css">
 </head>
 <body>
-<h1>Movie Explorer 🎬</h1>
+    <header>
+        <h1>Movie Explorer</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/ask">Ask AI</a>
+        </nav>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+    </header>
 
-<!-- Error Messages -->
-<div th:if="${error}" class="error">
-    <h3>⚠️ Error:</h3>
-    <p th:text="${error}"></p>
-</div>
+    <main>
+        <div th:if="${error}" class="error">
+            <h3>Error:</h3>
+            <p th:text="${error}"></p>
+        </div>
 
-<!-- Search Form -->
-<form th:action="@{/search}" method="get">
-    <label for="title">Enter movie title:</label>
-    <input type="text" id="title" name="title" required 
-           th:value="${movie?.title ?: ''}">
-    <button type="submit">Search</button>
-</form>
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="title" placeholder="Search movie..." required>
+            <button type="submit">Search</button>
+        </form>
 
-<!-- Movie Info -->
-<div th:if="${movie != null}">
-    <div class="movie-info">
-        <h2 th:text="${movie.title}"></h2>
-        <img th:src="${movie.poster}" alt="Movie Poster">
-        <p><strong>Year:</strong> <span th:text="${movie.year}"></span></p>
-        <p><strong>Director:</strong> <span th:text="${movie.director}"></span></p>
-        <p><strong>Plot:</strong> <span th:text="${movie.plot}"></span></p>
-        <p><strong>IMDb Rating:</strong> <span th:text="${movie.imdbRating}"></span></p>
-    </div>
+        <div th:if="${movie != null}">
+            <div class="movie-info">
+                <h2 th:text="${movie.title}"></h2>
+                <img th:src="${movie.poster}" alt="Poster">
+                <p>Year: <span th:text="${movie.year}"></span></p>
+                <p>Director: <span th:text="${movie.director}"></span></p>
+                <p>Plot: <span th:text="${movie.plot}"></span></p>
+                <p>Rating: <span th:text="${movie.imdbRating}"></span></p>
+            </div>
 
-    <!-- AI Recommendation Trigger -->
-    <form th:action="@{/recommend}" method="get">
-        <input type="hidden" name="title" th:value="${movie.title}">
-        <button type="submit" class="recommend-btn">Get AI Recommendations</button>
-    </form>
+            <form th:action="@{/recommend}" method="get">
+                <input type="hidden" name="title" th:value="${movie.title}">
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <h4>Genres</h4>
+                        <div th:if="${movie?.genre}">
+                            <label th:each="genre : ${#strings.arraySplit(movie.genre, ',')}">
+                                <input type="checkbox" name="genres" th:value="${#strings.trim(genre)}">
+                                <span th:text="${#strings.trim(genre)}"></span>
+                            </label>
+                        </div>
+                        <div th:unless="${movie?.genre}">
+                            <label th:each="genre : ${['Action', 'Drama', 'Comedy']}">
+                                <input type="checkbox" name="genres" th:value="${genre}">
+                                <span th:text="${genre}"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Get Recommendations</button>
+            </form>
 
-    <!-- Clickable AI Recommendations -->
-    <div th:if="${recommendationList != null}" class="recommendations">
-        <h3>🎥 AI Recommendations:</h3>
-        <ul>
-            <li th:each="rec : ${recommendationList}">
-                <a th:href="@{/search(title=${#strings.replace(rec, '^\\d+\\.\\s*', '')})}"
-                   th:text="${rec}"></a>
-            </li>
-        </ul>
-    </div>
-</div>
+            <div th:if="${recommendationList != null}">
+                <h3>Recommendations:</h3>
+                <ul>
+                    <li th:each="rec : ${recommendationList}">
+                        <a th:href="@{/search(title=${#strings.replace(rec, '^\\d+\\.\\s*', '')})}"
+                           th:text="${rec}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
 
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ask Movie AI</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/css/400;500;600;700.css">
+</head>
+<body>
+    <header>
+        <h1>Movie AI Assistant</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/ask">Ask AI</a>
+        </nav>
+        <button class="theme-toggle">🌓</button>
+    </header>
+
+    <main>
+        <div th:if="${error}" class="error">
+            <h3>Error:</h3>
+            <p th:text="${error}"></p>
+        </div>
+
+        <form th:action="@{/ask}" method="post">
+            <textarea name="query" placeholder="Ask me anything about movies... 
+Example: 'Show me romantic comedies from the 90s'
+Example: 'What are similar movies to Inception?'" 
+                     rows="5"></textarea>
+            <button type="submit">Ask AI</button>
+        </form>
+
+        <div th:if="${aiResponse}" class="response">
+            <h3>AI Response:</h3>
+            <pre th:text="${aiResponse}"></pre>
+        </div>
+    </main>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

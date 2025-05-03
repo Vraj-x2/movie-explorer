@@ -1,3 +1,4 @@
+// MovieService.java
 package com.movieexplorer.service;
 
 import com.movieexplorer.model.Movie;
@@ -14,11 +15,16 @@ public class MovieService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Movie getMovieByTitle(String title) {
-        String url = "https://www.omdbapi.com/?apikey=" + apiKey + "&t=" + title.replace(" ", "+");
+        String url = String.format(
+            "https://www.omdbapi.com/?apikey=%s&t=%s&plot=full",
+            apiKey,
+            title.replace(" ", "+")
+        );
+        
         Movie movie = restTemplate.getForObject(url, Movie.class);
         
         if (movie == null || movie.getImdbID() == null) {
-            throw new RuntimeException("Movie not found in OMDB");
+            throw new RuntimeException("Movie not found: " + title);
         }
         return movie;
     }
