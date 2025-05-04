@@ -30,14 +30,6 @@ This project combines traditional movie lookup with modern AI to offer a seamles
 | APIs         | [OMDb API](https://www.omdbapi.com/), [Google Gemini API](https://ai.google.dev/) |
 | Tools        | Maven, OkHttp, Jackson, IntelliJ/Eclipse |
 
----
-
-## 📸 Demo
-
-![Movie Explorer Screenshot](https://user-images.githubusercontent.com/your-screenshot-link.png)
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
