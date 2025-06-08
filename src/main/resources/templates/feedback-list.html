@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Feedback</title> <!-- Page title shown in browser tab -->
+</head>
+<body>
+<h2>All Submitted Feedback</h2> <!-- Heading for the feedback list -->
+
+<ul>
+    <!-- Loop through each feedback item in the 'feedbackList' model attribute -->
+    <li th:each="fb : ${feedbackList}">
+        <!-- Display the user's name -->
+        <strong th:text="${fb.name}">Name</strong>: 
+        <!-- Display the user's comment/message -->
+        <span th:text="${fb.comment}">Comment</span> 
+        <!-- Display the user's email in italics -->
+        (<em th:text="${fb.email}">Email</em>)
+    </li>
+</ul>
+
+<!-- Link back to the feedback form page -->
+<a href="/feedback">Back to Form</a>
+</body>
+</html>

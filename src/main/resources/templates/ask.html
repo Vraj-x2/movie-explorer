@@ -1,3 +1,12 @@
+<!--
+    Created by Vraj Contractor
+
+    This is the Thymeleaf template for the "Ask AI" page in the Movie Explorer app.
+    Users can submit natural language queries related to movies.
+    The form posts to the /ask endpoint and displays the AI's response.
+    The page also shows error messages if any occur during processing.
+-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,16 +21,19 @@
         <nav>
             <a href="/">Home</a>
             <a href="/ask">Ask AI</a>
+            <a href="/feedback">Feedback</a> <!-- New Link -->
         </nav>
         <button class="theme-toggle">🌓</button>
     </header>
 
     <main>
+        <!-- Display error message if present -->
         <div th:if="${error}" class="error">
             <h3>Error:</h3>
             <p th:text="${error}"></p>
         </div>
 
+        <!-- Form to submit a movie-related natural language query -->
         <form th:action="@{/ask}" method="post">
             <textarea name="query" placeholder="Ask me anything about movies... 
 Example: 'Show me romantic comedies from the 90s'
@@ -30,6 +42,7 @@ Example: 'What are similar movies to Inception?'"
             <button type="submit">Ask AI</button>
         </form>
 
+        <!-- Display AI response if available -->
         <div th:if="${aiResponse}" class="response">
             <h3>AI Response:</h3>
             <pre th:text="${aiResponse}"></pre>

@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <title>Movie Explorer</title>
+    <title>Movie Explorer</title> <!-- Page title -->
     <meta charset="UTF-8">
+    <!-- Link to your custom stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Link to Inter font from CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/css/400;500;600;700.css">
 </head>
 <body>
     <header>
-        <h1>Movie Explorer</h1>
+        <h1>Movie Explorer</h1> <!-- Main page heading -->
         <nav>
+            <!-- Navigation links -->
             <a href="/">Home</a>
             <a href="/ask">Ask AI</a>
+            <a href="/feedback">Feedback</a> <!-- New Link added for feedback page -->
         </nav>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
+        <button id="darkModeToggle">Toggle Dark Mode</button> <!-- Button to toggle dark mode -->
     </header>
 
     <main>
+        <!-- Display error message if 'error' attribute is present -->
         <div th:if="${error}" class="error">
             <h3>Error:</h3>
-            <p th:text="${error}"></p>
+            <p th:text="${error}"></p> <!-- Insert error message text here -->
         </div>
 
+        <!-- Search form to search movies by title -->
         <form th:action="@{/search}" method="get">
-            <input type="text" name="title" placeholder="Search movie..." required>
-            <button type="submit">Search</button>
+            <input type="text" name="title" placeholder="Search movie..." required> <!-- Input for movie title -->
+            <button type="submit">Search</button> <!-- Submit button -->
         </form>
 
+        <!-- If a movie object is present, display its details -->
         <div th:if="${movie != null}">
             <div class="movie-info">
-                <h2 th:text="${movie.title}"></h2>
-                <img th:src="${movie.poster}" alt="Poster">
-                <p>Year: <span th:text="${movie.year}"></span></p>
-                <p>Director: <span th:text="${movie.director}"></span></p>
-                <p>Plot: <span th:text="${movie.plot}"></span></p>
-                <p>Rating: <span th:text="${movie.imdbRating}"></span></p>
+                <h2 th:text="${movie.title}"></h2> <!-- Movie title -->
+                <img th:src="${movie.poster}" alt="Poster"> <!-- Movie poster image -->
+                <p>Year: <span th:text="${movie.year}"></span></p> <!-- Movie year -->
+                <p>Director: <span th:text="${movie.director}"></span></p> <!-- Movie director -->
+                <p>Plot: <span th:text="${movie.plot}"></span></p> <!-- Movie plot -->
+                <p>Rating: <span th:text="${movie.imdbRating}"></span></p> <!-- IMDb rating -->
             </div>
 
+            <!-- Form for getting recommendations based on the movie -->
             <form th:action="@{/recommend}" method="get">
+                <!-- Hidden input to pass current movie title -->
                 <input type="hidden" name="title" th:value="${movie.title}">
-                
+
                 <div class="filters">
                     <div class="filter-group">
                         <h4>Genres</h4>
+                        <!-- If movie.genre is present, split by comma and show as checkboxes -->
                         <div th:if="${movie?.genre}">
                             <label th:each="genre : ${#strings.arraySplit(movie.genre, ',')}">
                                 <input type="checkbox" name="genres" th:value="${#strings.trim(genre)}">
                                 <span th:text="${#strings.trim(genre)}"></span>
                             </label>
                         </div>
+                        <!-- If no movie.genre, show default genres checkboxes -->
                         <div th:unless="${movie?.genre}">
                             <label th:each="genre : ${['Action', 'Drama', 'Comedy']}">
                                 <input type="checkbox" name="genres" th:value="${genre}">
@@ -58,13 +68,17 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">Get Recommendations</button>
+                <button type="submit">Get Recommendations</button> <!-- Submit button for recommendations -->
             </form>
 
+            <!-- Show recommendation list if it exists -->
             <div th:if="${recommendationList != null}">
                 <h3>Recommendations:</h3>
                 <ul>
+                    <!-- Loop through each recommendation -->
                     <li th:each="rec : ${recommendationList}">
+                        <!-- Link to search page for each recommended movie
+                             The #strings.replace removes the leading number and dot from the title -->
                         <a th:href="@{/search(title=${#strings.replace(rec, '^\\d+\\.\\s*', '')})}"
                            th:text="${rec}"></a>
                     </li>
@@ -73,6 +87,7 @@
         </div>
     </main>
 
+    <!-- Link to your JS script -->
     <script src="/js/script.js"></script>
 </body>
 </html>

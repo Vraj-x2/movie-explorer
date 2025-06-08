@@ -1,0 +1,113 @@
+<!--
+    Created by Vraj Contractor
+
+    Feedback page for the Movie Explorer app.
+
+    Features:
+    - Feedback submission form: collects user name, email, and message.
+    - Displays error or success messages dynamically.
+    - Lists previous feedback entries in a styled table.
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback - Movie Explorer</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.3/css/400;500;600;700.css">
+
+    <style>
+        /* Table Styles for feedback list */
+        .feedback-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+        }
+
+        .feedback-list thead {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .feedback-list th,
+        .feedback-list td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid var(--accent-color);
+        }
+
+        .feedback-list tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.15);
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Explorer Feedback</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/ask">Ask AI</a>
+            <a href="/feedback">Feedback</a>
+        </nav>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+    </header>
+
+    <main>
+        <!-- Feedback submission form -->
+        <section class="feedback-form">
+            <h2>Send us your Feedback</h2>
+
+            <!-- Show error message if any -->
+            <div th:if="${error}" class="error-message" th:text="${error}"></div>
+            <!-- Show success message if feedback submitted -->
+            <div th:if="${success}" class="success-message" th:text="${success}"></div>
+
+            <form th:action="@{/feedback}" method="post">
+                <label for="userName">Name:</label><br>
+                <input type="text" id="userName" name="userName" required><br><br>
+
+                <label for="userEmail">Email:</label><br>
+                <input type="email" id="userEmail" name="userEmail" required><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </section>
+
+        <!-- Display previous feedback list if available -->
+        <section class="feedback-list" th:if="${feedbacks}">
+            <h2>Previous Feedback</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through feedbacks and display -->
+                    <tr th:each="fb : ${feedbacks}">
+                        <td th:text="${fb.id}">1</td>
+                        <td th:text="${fb.userName}">Sample Name</td>
+                        <td th:text="${fb.userEmail}">email@example.com</td>
+                        <td th:text="${fb.message}">Sample message</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

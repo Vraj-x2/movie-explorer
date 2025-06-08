@@ -97,7 +97,7 @@ form {
   margin-bottom: 2rem;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="email"] {
   width: 100%;
   padding: 1rem;
   margin: 1rem 0;
@@ -109,7 +109,7 @@ textarea, input[type="text"] {
   transition: var(--transition);
 }
 
-textarea:focus, input[type="text"]:focus {
+textarea:focus, input[type="text"]:focus, input[type="email"]:focus {
   border-color: var(--accent-color);
   outline: none;
 }
@@ -209,29 +209,61 @@ pre {
   margin-right: 0.5rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .movie-info {
-    grid-template-columns: 1fr;
-  }
-  
-  header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  main {
-    margin-top: 8rem;
-  }
+/* Feedback Table Styles */
+.feedback-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  textarea, input[type="text"] {
-    padding: 0.8rem;
-  }
-  
-  button[type="submit"] {
-    width: 100%;
-  }
+.feedback-list thead {
+  background-color: var(--accent-color);
+  color: white;
 }
+
+.feedback-list th, 
+.feedback-list td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.feedback-list tbody tr:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+  cursor: default;
+}
+
+/* Responsive Design */
+/* Feedback Table Styles */
+.feedback-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 2px solid var(--accent-color); /* Outer border */
+}
+
+.feedback-list thead {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.feedback-list th, 
+.feedback-list td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid var(--accent-color); /* Cell borders */
+}
+
+.feedback-list tbody tr:hover {
+  background-color: rgba(52, 152, 219, 0.15);
+  cursor: default;
+}
+
